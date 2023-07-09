@@ -42,23 +42,25 @@ def find_ips(packet):
 
     # If packet contains IPs
     if 'IP' in packet:
+        # Get IP addresses
         src_ip = packet['IP'].src
         dst_ip = packet['IP'].dst
-        # If the IP matches the entered sub domain display it
+        # Get MAC addresses
+        src_mac = packet['Ether'].src
+        dst_mac = packet['Ether'].dst
+        # If the IP matches the entered sub domain display it along with it's MAC address
         if src_ip[0:len(subdomain)] == subdomain:
             if src_ip not in src_ip_dict:
-                src_ip_dict[src_ip].append(dst_ip)
-
-                row = treeV.insert('', index=tk.END, text=src_ip)
-                treeV.insert(row, tk.END, text=dst_ip)
+                src_ip_dict[src_ip] = (src_mac, [dst_ip])
+                row = treeV.insert('', index=tk.END, text=src_ip, values=(src_mac,))
+                treeV.insert(row, tk.END, text=dst_ip, values=(dst_mac,))
                 treeV.pack(fill=tk.X)
-
             else:
-                if dst_ip not in src_ip_dict[src_ip]:
-                    src_ip_dict[src_ip].append(dst_ip)
+                if dst_ip not in src_ip_dict[src_ip][1]:
+                    src_ip_dict[src_ip][1].append(dst_ip)
                     cur_item = treeV.focus()
                     if treeV.item(cur_item)['text'] == src_ip:
-                        treeV.insert(cur_item, tk.END, text=dst_ip)
+                        treeV.insert(cur_item, tk.END, text=dst_ip, values=(dst_mac,))
 
 
 # Setting key variables
@@ -74,14 +76,17 @@ root.geometry('600x600')
 root.title('Network Analyzer')
 
 # Creating titles
-tk.Label(root, text='Network Analyzer', font='Helvetica 18 Bold').pack()
+tk.Label(root, text='Network Analyzer', font='Helvetica 18').pack()
 tk.Label(root, text="Enter an IP Subdomain address", font="Helvetica 16").pack()
 subdomain_entry = tk.Entry(root)
 subdomain_entry.pack(ipady=10, ipadx=40, pady=8)
 
 # Creating the tree view widget
-treeV = ttk.Treeview(root, height=400)
-treeV.column('#0')
+treeV = ttk.Treeview(root, height=400, columns=("mac_address",))
+treeV.column("#0", width=150, minwidth=150)
+treeV.column("mac_address", width=150, minwidth=150)
+treeV.heading("#0", text="IP Address")
+treeV.heading("mac_address", text="MAC Address")
 
 # Creating the two buttons
 button_frame = tk.Frame(root)
