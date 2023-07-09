@@ -7,6 +7,8 @@ import scapy.all as scapy
 import threading
 # Collections module
 import collections
+# For MAC Vendors API
+import pip._vendor.requests as requests
 
 # Button used to start scanning the network subdomain
 def start_button():
@@ -34,12 +36,20 @@ def stop_sniffing(packet):
     global stopAnalysing
     return stopAnalysing
 
+# Using the MacVendors API, finds the vendor for give MAC address
+def get_mac_vendors(mac_address):
+    url = f"https://api.macvendors.com/{mac_address}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.text.strip()
+    else:
+        return "Unknown"
+
 # Finds all the ip addresses on the network subdomain
 def find_ips(packet):
     global src_ip_dict
     global treeV
     global subdomain
-
     # If packet contains IPs
     if 'IP' in packet:
         # Get IP addresses
@@ -52,11 +62,17 @@ def find_ips(packet):
         if src_ip[0:len(subdomain)] == subdomain:
             if src_ip not in src_ip_dict:
                 src_ip_dict[src_ip] = (src_mac, [dst_ip])
-                row = treeV.insert('', index=tk.END, text=src_ip, values=(src_mac,))
+                vendor = get_mac_vendors(src_mac)
+                src_mac = src_mac + " which is " + vendor
+                row = treeV.insert('', index=tk.END, text=src_ip, values=(src_mac, vendor))
+                vendor = get_mac_vendors(dst_mac)
+                dst_mac = dst_mac + " which is " + vendor
                 treeV.insert(row, tk.END, text=dst_ip, values=(dst_mac,))
                 treeV.pack(fill=tk.X)
             else:
                 if dst_ip not in src_ip_dict[src_ip][1]:
+                    vendor = get_mac_vendors(dst_mac)
+                    dst_mac = dst_mac + " which is " + vendor
                     src_ip_dict[src_ip][1].append(dst_ip)
                     cur_item = treeV.focus()
                     if treeV.item(cur_item)['text'] == src_ip:
