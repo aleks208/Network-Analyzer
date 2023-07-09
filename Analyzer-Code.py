@@ -90,26 +90,32 @@ src_ip_dict = collections.defaultdict(list)
 root = tk.Tk() 
 root.geometry('600x600')
 root.title('Network Analyzer')
+root.configure(background='#F5F5F5')
 
 # Creating titles
-tk.Label(root, text='Network Analyzer', font='Helvetica 18').pack()
-tk.Label(root, text="Enter an IP Subdomain address", font="Helvetica 16").pack()
-subdomain_entry = tk.Entry(root)
-subdomain_entry.pack(ipady=10, ipadx=40, pady=8)
+tk.Label(root, text='Network Analyzer', font='Inconsolata 20 bold', fg='#006400', bg='#F5F5F5').pack()
+tk.Label(root, text="Enter an IP Subdomain address", font="Inconsolata 16", fg='#228B22', bg='#F5F5F5').pack()
 
-# Creating the tree view widget
-treeV = ttk.Treeview(root, height=400, columns=("mac_address",))
-treeV.column("#0", width=150, minwidth=150)
-treeV.column("mac_address", width=150, minwidth=150)
-treeV.heading("#0", text="IP Address")
-treeV.heading("mac_address", text="MAC Address")
+# Creatinng the entry box
+subdomain_entry = tk.Entry(root, justify='center', font='Inconsolata 13')
+subdomain_entry.pack(ipady=5, ipadx=10)
 
 # Creating the two buttons
 button_frame = tk.Frame(root)
-tk.Button(button_frame, text='Start analysing', command=start_button, width=15, font="Helvetica 14").pack(
+tk.Button(button_frame, text='Start', command=start_button, width=6, font="Inconsolata 14", fg='white', bg='#006400').pack(
     side=tk.LEFT)
-tk.Button(button_frame, text='Stop analysing', command=stop_button, width=15, font="Helvetica 14").pack(
+tk.Button(button_frame, text='Stop', command=stop_button, width=6, font="Inconsolata 14", fg='white', bg='#006400').pack(
     side=tk.LEFT)
-button_frame.pack(side=tk.BOTTOM, pady=10)
+button_frame.pack(pady=10)
+
+# Creating the tree view widget
+treeV = ttk.Treeview(root, height=350, columns=("mac_address",))
+treeV.column("#0", width=50, minwidth=50)
+treeV.column("mac_address", width=150, minwidth=150)
+treeV.heading("#0", text="IP Address")
+treeV.heading("mac_address", text="MAC Address")
+style = ttk.Style(root)
+style.theme_use("clam")
+ttk.Style().configure("Treeview", background="#98FF98", foreground="black", fieldbackground="#98FF98", font="Inconsolata 10")
 
 root.mainloop()
