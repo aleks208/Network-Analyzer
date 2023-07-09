@@ -7,6 +7,7 @@ In the next few months, this project will be expanded to encompass additional ne
 ## Features
 - Capture network packets within a specified IP subdomain.
 - Display the source and destination IP and MAC addresses in a neat user interface.
+- Finds the vendor for each MAC address using the MAC Address Vendor Lookup API provided by MACVendors.co
 - Start and stop packet analysing with the click of a button.
 - Real-time updates of captured packets.
 
@@ -20,7 +21,7 @@ In the next few months, this project will be expanded to encompass additional ne
 2. Run the Analyzer-Code.py script.
 3. Enter the IP subdomain you want to monitor in the application's GUI.
 4. Click the "Start analysing" button to start capturing packets.
-5. The captured IP and MAC addresses of these packets will be displayed in the GUI.
+5. The captured IP and MAC addresses of these packets will be displayed as well as the MAC address' vendor in the GUI.
 6. Click the "Stop analysing" button to stop packet capture.
 
 ## Notes
