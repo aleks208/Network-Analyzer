@@ -2,11 +2,11 @@
 
 The Network Analyzer application is a Python-based network tool that allows you to capture and analyze network packets within a specified IP subdomain. The application leverages the Scapy library for packet sniffing and provides a Graphical User Interface (GUI) using the Tkinter Python module.
 
-In the next few months, this project will be expanded to encompass additional network analysis, as well as displaying the MAC addresses, protocols and payload data for HTTP packets.
+In the next few months, this project will be expanded to encompass additional network analysis, as well as displaying the protocols and payload data for HTTP packets.
 
 ## Features
 - Capture network packets within a specified IP subdomain.
-- Display the source and destination IP addresses in a neat user interface.
+- Display the source and destination IP and MAC addresses in a neat user interface.
 - Start and stop packet analysing with the click of a button.
 - Real-time updates of captured packets.
 
@@ -20,7 +20,7 @@ In the next few months, this project will be expanded to encompass additional ne
 2. Run the Analyzer-Code.py script.
 3. Enter the IP subdomain you want to monitor in the application's GUI.
 4. Click the "Start analysing" button to start capturing packets.
-5. The captured IP addresses of these packets will be displayed in the GUI.
+5. The captured IP and MAC addresses of these packets will be displayed in the GUI.
 6. Click the "Stop analysing" button to stop packet capture.
 
 ## Notes
