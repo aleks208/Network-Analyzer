@@ -8,7 +8,7 @@ import threading
 # Collections module
 import collections
 # For MAC Vendors API
-import pip._vendor.requests as requests
+import requests
 
 # Button used to start scanning the network subdomain
 def start_button():
