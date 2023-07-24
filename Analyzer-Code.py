@@ -127,6 +127,3 @@ style.theme_use("clam")
 ttk.Style().configure("Treeview", background="#98FF98", foreground="black", fieldbackground="#98FF98", font="Inconsolata 10")
 
 root.mainloop()
-
-#seperate protocol and port
-#figure out why vendor is showing up in right column
