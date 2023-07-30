@@ -82,14 +82,13 @@ def find_ips(packet):
                     if treeV.item(cur_item)['text'] == src_ip:
                         treeV.insert(cur_item, tk.END, text=dst_ip, values=(dst_mac, protocol, dst_port))
 
-
 # Setting key variables
 thread = None
 stopAnalysing = True
 subdomain = ''
 src_ip_dict = collections.defaultdict(list)
 
-#------------------ GUI ------------------#
+#------------------------------------ GUI ------------------------------------#
 # Creating main window
 root = tk.Tk() 
 root.geometry('650x600')
@@ -114,10 +113,10 @@ button_frame.pack(pady=10)
 
 # Creating the tree view widget
 treeV = ttk.Treeview(root, height=350, columns=("mac_address", "protocol", "port"))
-treeV.column("#0", width=30, minwidth=30)
-treeV.column("mac_address", width=170, minwidth=170)
-treeV.column("protocol", width=15, minwidth=15)
-treeV.column("port", width=15, minwidth=15)
+treeV.column("#0", width=30, minwidth=30, anchor="center")
+treeV.column("mac_address", width=170, minwidth=170, anchor="center")
+treeV.column("protocol", width=15, minwidth=15, anchor="center")
+treeV.column("port", width=15, minwidth=15, anchor="center")
 treeV.heading("#0", text="IP Address")
 treeV.heading("mac_address", text="MAC Address")
 treeV.heading("protocol", text="Protocol")
